@@ -19,7 +19,7 @@
 
 ### Links
 
-- :robot: Available on the Play Store (awaiting approval)
+- :robot: [Available on the Play Store](https://play.google.com/store/apps/details?id=com.cyberkaidev.bankyou)
 - :art: [Figma](https://www.figma.com/design/SU1uqkeMdj3uvZr8c9nPMK/Bank-you?node-id=172-8930&t=5gCXOhRl3vU3XTnJ-1)
 - :rocket: [API](https://github.com/cyberkaidev/wallet-you-api)
 
