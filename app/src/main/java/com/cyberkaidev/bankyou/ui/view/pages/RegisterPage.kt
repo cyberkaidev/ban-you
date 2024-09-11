@@ -80,7 +80,7 @@ fun RegisterPage(
                         }
                     }
                 } catch (error: Throwable) {
-                    isLoading.value = true
+                    isLoading.value = false
                     snackbarHostState.showSnackbar("An error occurred, try again")
                 }
             }
@@ -129,7 +129,7 @@ fun RegisterPage(
                     OutlinedTextField(
                         value = addressField.value,
                         onValueChange = { addressField.value = it.trim() },
-                        placeholder = { Text("Ethereum (Public key)") },
+                        placeholder = { Text("Ethereum (Public Address)") },
                         modifier = Modifier.fillMaxWidth(),
                         singleLine = true,
                         trailingIcon = {
