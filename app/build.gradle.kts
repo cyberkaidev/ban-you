@@ -86,4 +86,5 @@ dependencies {
     implementation("io.insert-koin:koin-core")
     implementation("androidx.compose.material3:material3:1.3.0-beta04")
     implementation("androidx.datastore:datastore-preferences:1.1.1")
+    implementation("com.google.zxing:core:3.5.3")
 }
