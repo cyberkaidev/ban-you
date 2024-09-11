@@ -19,6 +19,8 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.MediumTopAppBar
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
@@ -35,7 +37,7 @@ import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.cyberkaidev.bankyou.ui.theme.BankYouTheme
-import com.cyberkaidev.bankyou.ui.view.fragments.DialogAddressesInput
+import com.cyberkaidev.bankyou.ui.view.fragments.DialogQRCode
 import com.cyberkaidev.bankyou.ui.view.shared.ButtonView
 import com.cyberkaidev.bankyou.ui.view.shared.ListViewItem
 import com.cyberkaidev.bankyou.viewmodel.UserViewModel
@@ -56,16 +58,11 @@ fun SettingsPage(
         val settings = remember { listOf("Address", "Terms", "Exit") }
         val openAddressDialog = remember { mutableStateOf(false) }
         val openExitDialog = remember { mutableStateOf(false) }
-
-        fun setAddress(value: String) {
-            scope.launch {
-                userViewModel.setAddress(value)
-            }
-        }
+        val snackbarHostState = remember { SnackbarHostState() }
 
         fun onHandlerExit() {
             openExitDialog.value = false
-            setAddress("")
+            scope.launch { userViewModel.setAddress("") }
             navController.navigate("WelcomePage") {
                 popUpTo(navController.graph.id) {
                     inclusive = true
@@ -90,7 +87,10 @@ fun SettingsPage(
                     },
                     scrollBehavior = scrollBehavior
                 )
-            }
+            },
+            snackbarHost = {
+                SnackbarHost(hostState = snackbarHostState)
+            },
         ) { innerPadding ->
             Surface(
                 modifier = Modifier
@@ -119,8 +119,14 @@ fun SettingsPage(
                 }
 
                 if (openAddressDialog.value) {
-                    DialogAddressesInput(
+                    DialogQRCode(
                         onDismissRequest = { openAddressDialog.value = false },
+                        onCopied = {
+                            openAddressDialog.value = false
+                            scope.launch {
+                                snackbarHostState.showSnackbar("Address copied")
+                            }
+                        },
                         address = address
                     )
                 }
