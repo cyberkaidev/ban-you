@@ -1,6 +1,5 @@
 package com.cyberkaidev.bankyou.ui.view.pages
 
-import android.annotation.SuppressLint
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -39,11 +38,10 @@ import androidx.navigation.NavHostController
 import com.cyberkaidev.bankyou.ui.theme.BankYouTheme
 import com.cyberkaidev.bankyou.ui.view.fragments.DialogQRCode
 import com.cyberkaidev.bankyou.ui.view.shared.ButtonView
-import com.cyberkaidev.bankyou.ui.view.shared.ListViewItem
+import com.cyberkaidev.bankyou.ui.view.shared.ListItemView
 import com.cyberkaidev.bankyou.viewmodel.UserViewModel
 import kotlinx.coroutines.launch
 
-@SuppressLint("StateFlowValueCalledInComposition")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SettingsPage(
@@ -104,7 +102,7 @@ fun SettingsPage(
                 ) {
                     Spacer(modifier = Modifier.height(16.dp))
                     settings.forEach {
-                        ListViewItem(
+                        ListItemView(
                             headlineContent = it,
                             onLongPress = {
                                 when(it) {

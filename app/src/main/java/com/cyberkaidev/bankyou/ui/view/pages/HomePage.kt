@@ -1,6 +1,5 @@
 package com.cyberkaidev.bankyou.ui.view.pages
 
-import android.annotation.SuppressLint
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -38,12 +37,11 @@ import androidx.navigation.NavHostController
 import com.cyberkaidev.bankyou.R
 import com.cyberkaidev.bankyou.model.TransactionSubtypeModel
 import com.cyberkaidev.bankyou.ui.theme.BankYouTheme
-import com.cyberkaidev.bankyou.ui.view.shared.ListViewItem
+import com.cyberkaidev.bankyou.ui.view.shared.ListItemView
 import com.cyberkaidev.bankyou.ui.view.fragments.WalletCarousel
 import com.cyberkaidev.bankyou.viewmodel.BalanceViewModel
 import com.cyberkaidev.bankyou.viewmodel.TransactionsViewModel
 
-@SuppressLint("StateFlowValueCalledInComposition")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomePage(
@@ -101,7 +99,7 @@ fun HomePage(
                             modifier = Modifier.padding(start = 16.dp, top = 16.dp)
                         )
                         category.items.forEach {
-                            ListViewItem(
+                            ListItemView(
                                 headlineContent = it.tokenName.name,
                                 supportingContent = it.hours,
                                 titleTrailing = addStatusAmount(it.transactionSubtype, it.amount),
