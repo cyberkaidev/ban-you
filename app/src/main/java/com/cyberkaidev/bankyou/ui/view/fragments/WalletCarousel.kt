@@ -18,6 +18,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -39,7 +40,7 @@ fun WalletCarousel(balance: BalanceModel) {
     Box(Modifier.padding(vertical = 16.dp)) {
         HorizontalMultiBrowseCarousel(
             state = carouselState,
-            modifier = Modifier.width(412.dp).height(221.dp),
+            modifier = Modifier.testTag("walletCarousel").width(412.dp).height(221.dp),
             preferredItemWidth = configuration.screenWidthDp.dp.div((1.3f)),
             itemSpacing = 8.dp,
             contentPadding = PaddingValues(horizontal = 16.dp),
