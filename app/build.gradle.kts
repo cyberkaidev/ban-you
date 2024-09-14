@@ -11,6 +11,8 @@ android {
     namespace = "com.cyberkaidev.bankyou"
     compileSdk = 34
 
+    testOptions.unitTests.isIncludeAndroidResources = true
+
     defaultConfig {
         applicationId = "com.cyberkaidev.bankyou"
         minSdk = 27
@@ -66,6 +68,8 @@ dependencies {
     implementation(libs.material)
     implementation(libs.androidx.datastore.preferences.core.jvm)
     testImplementation(libs.junit)
+    testImplementation(libs.junit.jupiter)
+    testImplementation(libs.androidx.ui.test.junit4.android)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(platform(libs.androidx.compose.bom))
@@ -86,5 +90,6 @@ dependencies {
     implementation("io.insert-koin:koin-core")
     implementation("androidx.compose.material3:material3:1.3.0")
     implementation("androidx.datastore:datastore-preferences:1.1.1")
+    testImplementation("org.robolectric:robolectric:4.13")
     implementation("com.google.zxing:core:3.5.3")
 }
