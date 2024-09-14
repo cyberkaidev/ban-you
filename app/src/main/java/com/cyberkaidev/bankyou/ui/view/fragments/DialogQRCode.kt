@@ -1,8 +1,6 @@
 package com.cyberkaidev.bankyou.ui.view.fragments
 
-import android.annotation.SuppressLint
 import android.graphics.Bitmap
-import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -25,6 +23,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalClipboardManager
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
@@ -33,7 +32,6 @@ import androidx.compose.ui.window.Dialog
 import com.cyberkaidev.bankyou.ui.view.shared.ButtonView
 import com.cyberkaidev.bankyou.utils.generateQRCode
 
-@SuppressLint("StateFlowValueCalledInComposition")
 @Composable
 fun DialogQRCode(
     onDismissRequest: () -> Unit,
@@ -46,7 +44,6 @@ fun DialogQRCode(
     val qrCodeGenerated = remember { mutableStateOf<Bitmap?>(null) }
 
     LaunchedEffect(address) {
-        Log.d("LaunchedEffect(address)", "Entrou")
         if (qrCodeGenerated.value === null) {
             qrCodeGenerated.value = generateQRCode(
                 address,
@@ -58,8 +55,7 @@ fun DialogQRCode(
 
     Dialog(onDismissRequest = { onDismissRequest() }) {
         Card(
-            modifier = Modifier
-                .fillMaxWidth(),
+            modifier = Modifier.testTag("dialogQRCode").fillMaxWidth(),
             shape = RoundedCornerShape(32.dp),
             colors = CardColors(
                 containerColor = MaterialTheme.colorScheme.surface,
