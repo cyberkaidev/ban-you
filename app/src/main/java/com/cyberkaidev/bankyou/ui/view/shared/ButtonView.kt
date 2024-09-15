@@ -5,7 +5,9 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonColors
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.testTag
 
 @Composable
 fun ButtonView(
@@ -15,6 +17,7 @@ fun ButtonView(
     content: @Composable RowScope.() -> Unit
 ) {
     Button(
+        modifier = Modifier.testTag("buttonView"),
         onClick = onClick,
         enabled = enabled ?: true,
         colors = ButtonColors(

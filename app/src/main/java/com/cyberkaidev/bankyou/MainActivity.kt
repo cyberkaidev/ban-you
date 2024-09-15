@@ -1,6 +1,5 @@
 package com.cyberkaidev.bankyou
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -23,7 +22,6 @@ import com.google.android.material.color.DynamicColors
 import org.koin.androidx.compose.koinViewModel
 
 class MainActivity : ComponentActivity() {
-    @SuppressLint("StateFlowValueCalledInComposition")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
