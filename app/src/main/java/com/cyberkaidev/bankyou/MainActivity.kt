@@ -4,10 +4,14 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.animation.AnimatedContentTransitionScope
+import androidx.compose.animation.core.tween
 import androidx.compose.material3.Surface
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.cyberkaidev.bankyou.ui.theme.BankYouTheme
 import com.cyberkaidev.bankyou.ui.view.pages.HomePage
 import com.cyberkaidev.bankyou.ui.view.pages.InitialPage
@@ -39,8 +43,6 @@ class MainActivity : ComponentActivity() {
                             InitialPage(
                                 navController,
                                 userViewModel,
-                                balanceViewModel,
-                                transactionsViewModel,
                             )
                         }
                         composable("WelcomePage") {
@@ -54,14 +56,35 @@ class MainActivity : ComponentActivity() {
                                 transactionsViewModel,
                             )
                         }
-                        composable("HomePage") {
+                        composable(
+                            route = "HomePage/{wasItLoaded}",
+                            arguments = listOf(navArgument("wasItLoaded") {
+                                type = NavType.BoolType
+                            })
+                        ) { backStackEntry ->
                             HomePage(
+                                wasItLoaded = backStackEntry.arguments?.getBoolean("wasItLoaded"),
                                 navController,
+                                userViewModel,
                                 balanceViewModel,
                                 transactionsViewModel
                             )
                         }
-                        composable("SettingsPage") {
+                        composable(
+                            route = "SettingsPage",
+                            enterTransition = {
+                                return@composable slideIntoContainer(
+                                    AnimatedContentTransitionScope.SlideDirection.Start,
+                                    tween(500)
+                                )
+                            },
+                            popExitTransition = {
+                                return@composable slideOutOfContainer(
+                                    AnimatedContentTransitionScope.SlideDirection.End,
+                                    tween(500)
+                                )
+                            }
+                        ) {
                             SettingsPage(
                                 navController,
                                 userViewModel
