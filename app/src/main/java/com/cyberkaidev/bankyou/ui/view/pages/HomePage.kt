@@ -90,11 +90,12 @@ fun HomePage(
         }
 
         LaunchedEffect(wasItLoaded, address) {
-            if (
-                wasItLoaded == false &&
-                address.isNotBlank() &&
-                status.value === NetworkStatusModel.UNINITIALIZED
-                ) {
+            if (wasItLoaded == true && status.value === NetworkStatusModel.UNINITIALIZED) {
+                status.value = NetworkStatusModel.SUCCESS
+                return@LaunchedEffect
+            }
+
+            if (address.isNotBlank() && status.value === NetworkStatusModel.UNINITIALIZED) {
                 getBalanceAndTransactions()
             }
         }
