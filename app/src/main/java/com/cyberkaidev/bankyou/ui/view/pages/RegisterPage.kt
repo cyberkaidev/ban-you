@@ -1,6 +1,5 @@
 package com.cyberkaidev.bankyou.ui.view.pages
 
-import android.annotation.SuppressLint
 import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Arrangement
@@ -42,12 +41,12 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.cyberkaidev.bankyou.ui.theme.BankYouTheme
 import com.cyberkaidev.bankyou.ui.view.shared.ButtonView
+import com.cyberkaidev.bankyou.utils.resetRoute
 import com.cyberkaidev.bankyou.viewmodel.BalanceViewModel
 import com.cyberkaidev.bankyou.viewmodel.TransactionsViewModel
 import com.cyberkaidev.bankyou.viewmodel.UserViewModel
 import kotlinx.coroutines.launch
 
-@SuppressLint("StateFlowValueCalledInComposition")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun RegisterPage(
@@ -67,18 +66,13 @@ fun RegisterPage(
         val snackbarHostState = remember { SnackbarHostState() }
 
         suspend fun onHandlerInformation() {
-            if (addressField.value.isNotEmpty()) {
+            if (addressField.value.isNotBlank()) {
                 isLoading.value = true
                 try {
                     balanceViewModel.getBalance(addressField.value)
                     transactionsViewModel.getTransactions(addressField.value)
-
                     userViewModel.setAddress(addressField.value)
-                    navController.navigate("HomePage") {
-                        popUpTo(navController.graph.id) {
-                            inclusive = true
-                        }
-                    }
+                    resetRoute(navController, "HomePage/true")
                 } catch (error: Throwable) {
                     isLoading.value = false
                     snackbarHostState.showSnackbar("An error occurred, try again")
@@ -147,11 +141,7 @@ fun RegisterPage(
 
                     ButtonView(
                         enabled = !isLoading.value && addressField.value.isNotBlank(),
-                        onClick = {
-                            scope.launch {
-                                onHandlerInformation()
-                            }
-                        }
+                        onClick = { scope.launch { onHandlerInformation() } }
                     ) {
                         Text(
                             if(isLoading.value) "Loading" else "Continue",
